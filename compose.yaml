@@ -1,9 +1,38 @@
+# Comments are provided throughout this file to help you get started.
+# If you need more help, visit the Docker Compose reference guide at
+# https://docs.docker.com/go/compose-spec-reference/
+
+# Here the instructions define your application as a service called "server".
+# This service is built from the Dockerfile in the current directory.
+# You can add other services your application may depend on here, such as a
+# database or a cache. For examples, see the Awesome Compose repository:
+# https://github.com/docker/awesome-compose
 services:
-  mongodb:
-    image: 'mongo:latest'
-    environment:
-      - 'MONGO_INITDB_DATABASE=mydatabase'
-      - 'MONGO_INITDB_ROOT_PASSWORD=secret'
-      - 'MONGO_INITDB_ROOT_USERNAME=root'
+  server:
+    build:
+      context: .
     ports:
-      - '27017'
+      - 8080:8080
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - 28017:27017 # Expose MongoDB on 28017
+    environment:
+      - MONGO_INITDB_DATABASE=gestion-de-formations
+      - MONGO_INITDB_ROOT_USERNAME=root # Set the admin username
+      - MONGO_INITDB_ROOT_PASSWORD=password # Set the admin password
+    volumes:
+      - mongo-data:/data/db # Persist MongoDB data
+    healthcheck:
+      test: ["CMD","mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+volumes:
+  mongo-data:
