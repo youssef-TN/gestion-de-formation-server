@@ -10,4 +10,5 @@
 	4. docker compose down (to close off the image)
 
 # Server info 
-	-link : localhost:8080
+	-link: localhost:8080
+	-mongodb compass connection string: mongodb://root:password@localhost:28017/gestion-de-formation?authSource=admin
