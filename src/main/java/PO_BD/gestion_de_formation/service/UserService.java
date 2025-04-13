@@ -120,20 +120,4 @@ public class UserService {
         
         return Optional.empty();
     }
-    
-    /**
-     * Change a user's password
-     * 
-     * @param id the ID of the user
-     * @param newPassword the new password
-     * @return the updated user
-     * @throws IllegalArgumentException if the user doesn't exist
-     */
-    public User changePassword(String id, String newPassword) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + id));
-        
-        user.setPassword(newPassword);
-        return userRepository.save(user);
-    }
 }

@@ -99,24 +99,4 @@ public class UserController {
 		return user.map(ResponseEntity::ok)
             .orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
-
-	@PutMapping("/{id}/password")
-	public ResponseEntity<?> changePassword(@PathVariable String id, @RequestBody Map<String, String> passwordData) {
-		String newPassword = passwordData.get("newPassword");
-
-		if (newPassword == null) {
-			Map<String, String> response = new HashMap<>();
-			response.put("error", "New password is required");
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-		}
-
-		try {
-			User user = userService.changePassword(id, newPassword);
-			return ResponseEntity.ok(user);
-		} catch (IllegalArgumentException e) {
-			Map<String, String> response = new HashMap<>();
-			response.put("error", e.getMessage());
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-		}
-	}
 }
