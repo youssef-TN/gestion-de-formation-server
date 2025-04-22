@@ -1,7 +1,9 @@
 package PO_BD.gestion_de_formation.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
 
 import PO_BD.gestion_de_formation.model.User;
 import PO_BD.gestion_de_formation.repository.UserRepository;
@@ -13,7 +15,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-
+    
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -65,7 +67,7 @@ public class UserService {
     /**
      * Update an existing user
      * 
-     * @param id the ID of the user to update
+     * @param id          the ID of the user to update
      * @param userDetails the updated user details
      * @return the updated user
      * @throws IllegalArgumentException if the user doesn't exist
@@ -73,11 +75,13 @@ public class UserService {
     public User updateUser(String id, User userDetails) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + id));
-        
+
         user.setLogin(userDetails.getLogin());
         user.setPassword(userDetails.getPassword());
         user.setRole(userDetails.getRole());
-        
+        user.setCreatedAt(userDetails.getCreatedAt());
+        user.setUpdatedAt(String.valueOf(System.currentTimeMillis()));
+
         return userRepository.save(user);
     }
 
@@ -103,21 +107,32 @@ public class UserService {
     public List<User> getUsersByRole(String role) {
         return userRepository.findByRole(role);
     }
-    
+
     /**
      * Authenticate a user
      * 
-     * @param login the user's login
+     * @param login    the user's login
      * @param password the user's password
      * @return an Optional containing the user if authentication is successful
      */
     public Optional<User> authenticate(String login, String password) {
         Optional<User> userOpt = userRepository.findByLogin(login);
-        
+
         if (userOpt.isPresent() && userOpt.get().getPassword().equals(password)) {
             return userOpt;
         }
-        
+
         return Optional.empty();
     }
+
+    /**
+     * Get recent activities
+     * 
+     * @return a list of with recent activities
+     */
+    public List<User> getRecentActivities() {
+        Pageable limitThree = PageRequest.of(0, 3);
+        return userRepository.findFreshUsers(limitThree);
+    }
+    
 }

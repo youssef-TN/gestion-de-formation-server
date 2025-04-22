@@ -1,10 +1,13 @@
 package PO_BD.gestion_de_formation.repository;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import PO_BD.gestion_de_formation.model.Trainer;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -33,4 +36,11 @@ public interface TrainerRepository extends MongoRepository<Trainer, String> {
      */
     java.util.List<Trainer> findByType(String type);
 	
+    /**
+     * Find the three most recent trainers
+     * 
+     * @return a list of the three most recent trainers
+     */
+    @Query(value = "{ }", sort = "{ 'updatedAt': -1 }")
+    List<Trainer> findFreshTrainers(Pageable pageable);
 }	

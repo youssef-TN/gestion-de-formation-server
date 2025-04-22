@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/participants")
+@CrossOrigin(origins = "*")
 public class ParticipantController {
 	
 	private final ParticipantService participantService;
@@ -77,4 +78,8 @@ public class ParticipantController {
 		}
 	}
 	
+	@GetMapping("/recentActivities")
+public ResponseEntity<List<Participant>> getRecentActivities() {
+    return ResponseEntity.ok(participantService.getRecentActivities());
+}
 }

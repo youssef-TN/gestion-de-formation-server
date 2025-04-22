@@ -12,51 +12,96 @@ public class Training {
     private int year;
     private int duration;
     private String field;
-    private Double budget;
+    private int budget;
+    private String createdAt;
+    private String updatedAt;
 
-    public Training(String id, String title, int year, int duration, String field, Double budget) {
+    public Training(String id, String title, int year, int duration, String field, int budget) {
         this.id = id;
         this.title = title;
         this.year = year;
         this.duration = duration;
         this.field = field;
         this.budget = budget;
+        this.createdAt = String.valueOf(System.currentTimeMillis());
+        this.updatedAt = String.valueOf(System.currentTimeMillis());
     }
+
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
+
     public String getTitle() {
         return title;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
+
     public int getYear() {
         return year;
     }
+
     public void setYear(int year) {
         this.year = year;
     }
+
     public int getDuration() {
         return duration;
     }
+
     public void setDuration(int duration) {
         this.duration = duration;
     }
+
     public String getField() {
         return field;
     }
+
     public void setField(String field) {
         this.field = field;
     }
-    public Double getBudget() {
+
+    public int getBudget() {
         return budget;
     }
-    public void setBudget(Double budget) {
+
+    public void setBudget(int budget) {
         this.budget = budget;
     }
-	
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Training{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", year=" + year +
+                ", duration=" + duration +
+                ", field='" + field + '\'' +
+                ", budget=" + budget +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                '}';
+    }
 }

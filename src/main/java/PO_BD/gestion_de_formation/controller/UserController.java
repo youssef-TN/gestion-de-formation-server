@@ -8,13 +8,14 @@ import org.springframework.web.bind.annotation.*;
 import PO_BD.gestion_de_formation.model.User;
 import PO_BD.gestion_de_formation.service.UserService;
 
-import java.util.HashMap;
+import java.util.HashMap; 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin(origins = "*")
 public class UserController {
 
 	private final UserService userService;
@@ -88,7 +89,6 @@ public class UserController {
     public ResponseEntity<?> authenticateUser(@RequestBody Map<String, String> credentials) {
         String login = credentials.get("login");
         String password = credentials.get("password");
-
         if (login == null || password == null) {
             Map<String, String> response = new HashMap<>();
 			response.put("error", "Login and password are required");
@@ -99,4 +99,10 @@ public class UserController {
 		return user.map(ResponseEntity::ok)
             .orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
+	
+	@GetMapping("/recentActivities")
+public ResponseEntity<List<User>> getRecentActivities() {
+    return ResponseEntity.ok(userService.getRecentActivities());
+}
+
 }

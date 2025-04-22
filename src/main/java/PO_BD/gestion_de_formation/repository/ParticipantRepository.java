@@ -1,12 +1,14 @@
 package PO_BD.gestion_de_formation.repository;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import PO_BD.gestion_de_formation.model.Participant;
-import PO_BD.gestion_de_formation.model.Trainer;
 import PO_BD.gestion_de_formation.model.Training;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -34,4 +36,12 @@ public interface ParticipantRepository extends MongoRepository<Participant, Stri
 	 * @return true if a training exists with this email, false otherwise
 	 */
 	boolean existsByEmail(String email);
+
+	/**
+     * Find the three most recent participants
+     * 
+     * @return a list of the three most recent participants
+     */
+    @Query(value = "{ }", sort = "{ 'updatedAt': -1 }")
+    List<Participant> findFreshParticipants(Pageable pageable);
 }

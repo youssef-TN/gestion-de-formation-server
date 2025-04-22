@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import PO_BD.gestion_de_formation.model.Training;
-import PO_BD.gestion_de_formation.model.User;
 import PO_BD.gestion_de_formation.service.TrainingService;
 
 import java.util.HashMap;
@@ -16,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/trainings")
+@CrossOrigin(origins = "*")
 public class TrainingController {
 
 	private final TrainingService trainingService;
@@ -73,4 +73,8 @@ public class TrainingController {
 		}
 	}
 	
+	@GetMapping("/recentActivities")
+public ResponseEntity<List<Training>> getRecentActivities() {
+    return ResponseEntity.ok(trainingService.getRecentActivities());
+}
 }

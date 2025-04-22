@@ -1,6 +1,8 @@
 package PO_BD.gestion_de_formation.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import PO_BD.gestion_de_formation.model.Trainer;
@@ -68,6 +70,8 @@ public class TrainerService {
 		trainer.setEmail(trainerDetails.getEmail());
 		trainer.setTel(trainerDetails.getTel());
 		trainer.setType(trainerDetails.getType());
+		trainer.setCreatedAt(trainerDetails.getCreatedAt());
+		trainer.setUpdatedAt(String.valueOf(System.currentTimeMillis()));
 
 		return trainerRepository.save(trainer);
 	}
@@ -83,4 +87,14 @@ public class TrainerService {
 		}
 		trainerRepository.deleteById(id);
 	}
+
+	/**
+     * Get recent activities
+     * 
+     * @return a list of with recent activities
+     */
+    public List<Trainer> getRecentActivities() {
+        Pageable limitThree = PageRequest.of(0, 3);
+        return trainerRepository.findFreshTrainers(limitThree);
+    }
 }

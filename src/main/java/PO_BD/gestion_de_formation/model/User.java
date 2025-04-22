@@ -11,6 +11,8 @@ public class User {
 	private String login;
 	private String password;
 	private String role;
+	private String createdAt;
+	private String updatedAt;
 
 	public User(String id, String login, String password, String role) {
 		super();
@@ -18,6 +20,9 @@ public class User {
 		this.login = login;
 		this.password = password;
 		this.role = role;
+		this.createdAt = String.valueOf(System.currentTimeMillis());
+		this.updatedAt = String.valueOf(System.currentTimeMillis());
+
 	}
 
 	public String getId() {
@@ -50,5 +55,21 @@ public class User {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public String getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(String updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 }

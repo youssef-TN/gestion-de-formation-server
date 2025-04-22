@@ -1,6 +1,8 @@
 package PO_BD.gestion_de_formation.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import PO_BD.gestion_de_formation.model.Training;
@@ -57,6 +59,8 @@ public class TrainingService {
         training.setDuration(trainingDetails.getDuration());
         training.setField(trainingDetails.getField());
         training.setBudget(trainingDetails.getBudget());
+        training.setCreatedAt(trainingDetails.getCreatedAt());
+        training.setUpdatedAt(String.valueOf(System.currentTimeMillis()));
 
         return trainingRepository.save(training);
     }
@@ -69,9 +73,18 @@ public class TrainingService {
      */
     public void deleteTraining(String id) {
          if (!trainingRepository.existsById(id)) {
-            throw new IllegalArgumentException("User not found with id: " + id);
+            throw new IllegalArgumentException("Training not found with id: " + id);
         }
         trainingRepository.deleteById(id);
     }
 
+    /**
+     * Get recent activities
+     * 
+     * @return a list of with recent activities
+     */
+    public List<Training> getRecentActivities() {
+        Pageable limitThree = PageRequest.of(0, 3);
+        return trainingRepository.findFreshTrainings(limitThree);
+    }
 }

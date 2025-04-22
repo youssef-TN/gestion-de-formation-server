@@ -12,6 +12,8 @@ public class Trainer {
     private String email;
     private String tel;
     private String type;
+    private String createdAt;
+    private String updatedAt;
 
     public Trainer(String id, String firstName, String lastName, String email, String tel, String type) {
         this.id = id;
@@ -20,6 +22,8 @@ public class Trainer {
         this.email = email;
         this.tel = tel;
         this.type = type;
+        this.createdAt = String.valueOf(System.currentTimeMillis());
+        this.updatedAt = String.valueOf(System.currentTimeMillis());
     }       
     
     public String getId() {
@@ -57,5 +61,35 @@ public class Trainer {
     }
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Trainer{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", tel='" + tel + '\'' +
+                ", type='" + type + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                '}';
     }
 }

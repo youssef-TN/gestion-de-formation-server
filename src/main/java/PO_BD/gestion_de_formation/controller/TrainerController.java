@@ -15,8 +15,9 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/trainers")
+@CrossOrigin(origins = "*")
 public class TrainerController {
-	
+
 	private final TrainerService trainerService;
 
 	@Autowired
@@ -70,5 +71,10 @@ public class TrainerController {
 			response.put("error", e.getMessage());
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
 		}
+	}
+
+	@GetMapping("/recentActivities")
+	public ResponseEntity<List<Trainer>> getRecentActivities() {
+		return ResponseEntity.ok(trainerService.getRecentActivities());
 	}
 }
