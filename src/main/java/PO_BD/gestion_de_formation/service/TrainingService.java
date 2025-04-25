@@ -48,6 +48,9 @@ public class TrainingService {
         if (trainingRepository.existsByTitle(training.getTitle())) {
             throw new IllegalArgumentException("A training with title " + training.getTitle() + " already exists");
         }
+        training.setCreatedAt(java.time.Instant.now().toString());
+        training.setUpdatedAt(java.time.Instant.now().toString());
+        
         return trainingRepository.save(training);
     }
     
@@ -60,7 +63,7 @@ public class TrainingService {
         training.setField(trainingDetails.getField());
         training.setBudget(trainingDetails.getBudget());
         training.setCreatedAt(trainingDetails.getCreatedAt());
-        training.setUpdatedAt(String.valueOf(System.currentTimeMillis()));
+        training.setUpdatedAt(java.time.Instant.now().toString());
 
         return trainingRepository.save(training);
     }

@@ -61,6 +61,9 @@ public class UserService {
         if (userRepository.existsByLogin(user.getLogin())) {
             throw new IllegalArgumentException("A user with login " + user.getLogin() + " already exists");
         }
+        user.setCreatedAt(java.time.Instant.now().toString());
+        user.setUpdatedAt(java.time.Instant.now().toString());
+        
         return userRepository.save(user);
     }
 
@@ -80,7 +83,7 @@ public class UserService {
         user.setPassword(userDetails.getPassword());
         user.setRole(userDetails.getRole());
         user.setCreatedAt(userDetails.getCreatedAt());
-        user.setUpdatedAt(String.valueOf(System.currentTimeMillis()));
+        user.setUpdatedAt(java.time.Instant.now().toString());
 
         return userRepository.save(user);
     }

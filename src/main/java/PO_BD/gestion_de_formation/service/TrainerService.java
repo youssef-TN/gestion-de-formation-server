@@ -51,6 +51,9 @@ public class TrainerService {
 		if (trainerRepository.existsByEmail(trainer.getEmail())) {
 			throw new IllegalArgumentException("A trainer with email " + trainer.getEmail() + " already exists");
 		}
+		trainer.setCreatedAt(java.time.Instant.now().toString());
+        trainer.setUpdatedAt(java.time.Instant.now().toString());
+        
 		return trainerRepository.save(trainer);
 	}
 
@@ -71,7 +74,7 @@ public class TrainerService {
 		trainer.setTel(trainerDetails.getTel());
 		trainer.setType(trainerDetails.getType());
 		trainer.setCreatedAt(trainerDetails.getCreatedAt());
-		trainer.setUpdatedAt(String.valueOf(System.currentTimeMillis()));
+		trainer.setUpdatedAt(java.time.Instant.now().toString());
 
 		return trainerRepository.save(trainer);
 	}

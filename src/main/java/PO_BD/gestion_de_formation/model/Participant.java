@@ -25,8 +25,8 @@ public class Participant {
         this.profile = profile;
         this.email = email;
         this.tel = tel;
-        this.createdAt = String.valueOf(System.currentTimeMillis());
-        this.updatedAt = String.valueOf(System.currentTimeMillis());
+        this.createdAt = java.time.Instant.now().toString();
+        this.updatedAt = java.time.Instant.now().toString();
     }
 
     public String getId() {

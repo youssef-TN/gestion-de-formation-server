@@ -22,43 +22,54 @@ public class Trainer {
         this.email = email;
         this.tel = tel;
         this.type = type;
-        this.createdAt = String.valueOf(System.currentTimeMillis());
-        this.updatedAt = String.valueOf(System.currentTimeMillis());
-    }       
-    
+        this.createdAt = java.time.Instant.now().toString();
+        this.updatedAt = java.time.Instant.now().toString();
+    }
+
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
+
     public String getFirstName() {
         return firstName;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
     public String getLastName() {
         return lastName;
     }
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
+
     public String getTel() {
         return tel;
     }
+
     public void setTel(String tel) {
         this.tel = tel;
     }
+
     public String getType() {
         return type;
     }
+
     public void setType(String type) {
         this.type = type;
     }

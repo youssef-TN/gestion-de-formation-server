@@ -63,6 +63,8 @@ public class ParticipantService {
             throw new IllegalArgumentException(
                     "A participant with email " + participant.getEmail() + " already exists");
         }
+        participant.setCreatedAt(java.time.Instant.now().toString());
+        participant.setUpdatedAt(java.time.Instant.now().toString());
         return participantRepository.save(participant);
     }
 
@@ -87,8 +89,7 @@ public class ParticipantService {
         participant.setTel(participantDetails.getTel());
         participant.setProfile(participantDetails.getProfile());
         participant.setCreatedAt(participantDetails.getCreatedAt());
-        participant.setUpdatedAt(String.valueOf(System.currentTimeMillis()));   
-
+        participant.setUpdatedAt(java.time.Instant.now().toString());   
         return participantRepository.save(participant);
     }
 
